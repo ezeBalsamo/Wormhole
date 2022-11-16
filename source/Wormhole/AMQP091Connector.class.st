@@ -10,7 +10,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-AMQP091Connector class >> named: aName [
+AMQP091Connector class >> named: aName hostedIn: aHost [
 
-	InstanceCreationFailed signal: 'Name cannot be blank.'
+	AssertionChecker
+		refuse: [ aName trimBoth isEmpty ]
+		because: 'Name cannot be blank.'
+		raising: InstanceCreationFailed.
+
+	InstanceCreationFailed signal: 'Host cannot be blank.'
 ]

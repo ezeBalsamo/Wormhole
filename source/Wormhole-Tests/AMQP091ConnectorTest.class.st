@@ -15,8 +15,22 @@ AMQP091ConnectorTest >> test01NameCannotBeBlank [
 		add: ' ';
 		do: [ :anInvalidName | 
 			self
-				should: [ AMQP091Connector named: anInvalidName ]
+				should: [ AMQP091Connector named: anInvalidName hostedIn: 'localhost' ]
 				raise: InstanceCreationFailed
 				withMessageText: 'Name cannot be blank.'
+			]
+]
+
+{ #category : #tests }
+AMQP091ConnectorTest >> test02HostCannotBeBlank [
+
+	OrderedCollection new
+		add: '';
+		add: ' ';
+		do: [ :anInvalidHost | 
+			self
+				should: [ AMQP091Connector named: 'Pepe' hostedIn: anInvalidHost ]
+				raise: InstanceCreationFailed
+				withMessageText: 'Host cannot be blank.'
 			]
 ]
