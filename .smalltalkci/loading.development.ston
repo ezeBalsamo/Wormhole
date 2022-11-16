@@ -1,0 +1,16 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'Wormhole',
+      #directory : '../source',
+      #load : [ 'Development' ],
+      #platforms : [  #pharo ]
+    }
+  ],
+  #testing : {
+    #coverage : {
+      #packages : [ 'Wormhole*' ],
+      #format: #lcov
+    }
+  }
+}
