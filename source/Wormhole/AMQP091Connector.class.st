@@ -10,12 +10,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-AMQP091Connector class >> named: aName hostedIn: aHost [
+AMQP091Connector class >> named: aName hostedIn: aHost on: aPort [
 
-	AssertionChecker
-		refuse: [ aName trimBoth isEmpty ]
-		because: 'Name cannot be blank.'
-		raising: InstanceCreationFailed.
+	AssertionCheckerBuilder new
+		failFast;
+		raising: InstanceCreationFailed;
+		checking: [ :anAsserter | 
+			anAsserter
+				refuse: [ aName trimBoth isEmpty ] because: 'Name cannot be blank.';
+				refuse: [ aHost trimBoth isEmpty ] because: 'Host cannot be blank.'
+			];
+		buildAndCheck.
 
-	InstanceCreationFailed signal: 'Host cannot be blank.'
+	InstanceCreationFailed signal: 'Port must be positive.'
 ]
