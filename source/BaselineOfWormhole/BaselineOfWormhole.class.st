@@ -28,12 +28,10 @@ BaselineOfWormhole >> setUpDependenciesIn: spec [
 	spec
 		baseline: 'Kepler' with: [ spec repository: 'github://ba-st/Kepler:v5.1.0' ];
 		project: 'Kepler-Notifications' copyFrom: 'Kepler' with: [ spec loads: 'Kepler-Notifications' ];
-		project: 'Kepler-Dependent-SUnit-Extensions'
-		copyFrom: 'Kepler'
-		with: [ spec loads: 'Dependent-SUnit-Extensions' ].
+		project: 'Kepler-SUnit' copyFrom: 'Kepler' with: [ spec loads: 'Dependent-SUnit-Extensions' ].
 
 	spec
-		baseline: 'Buoy' with: [ spec repository: 'github://ba-st/Buoy:v6.2.0' ];
+		baseline: 'Buoy' with: [ spec repository: 'github://ba-st/Buoy:v6' ];
 		project: 'Buoy-Tools' copyFrom: 'Buoy' with: [ spec loads: 'Tools' ]
 ]
 
@@ -44,6 +42,7 @@ BaselineOfWormhole >> setUpGroupsIn: spec [
 		group: 'Deployment' with: 'Wormhole';
 		group: 'Tests' with: 'Wormhole-Tests';
 		group: 'Tools' with: 'Buoy-Tools';
+		group: 'Dependent-SUnit-Extensions' with: 'Kepler-SUnit';
 		group: 'CI' with: 'Tests';
 		group: 'Development' with: #( 'Tests' 'Tools' )
 ]
@@ -53,6 +52,5 @@ BaselineOfWormhole >> setUpPackagesIn: spec [
 
 	spec
 		package: 'Wormhole' with: [ spec requires: 'Kepler-Notifications' ];
-		package: 'Wormhole-Tests'
-		with: [ spec requires: #( 'Wormhole' 'Kepler-Dependent-SUnit-Extensions' ) ]
+		package: 'Wormhole-Tests' with: [ spec requires: #( 'Wormhole' 'Kepler-SUnit' ) ]
 ]
