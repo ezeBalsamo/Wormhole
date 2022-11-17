@@ -133,3 +133,27 @@ AMQP091ConnectorTest >> test06TimeoutDelayMustBePositive [
 		raise: InstanceCreationFailed
 		withMessageText: 'Timeout delay must be positive.'
 ]
+
+{ #category : #tests }
+AMQP091ConnectorTest >> test07InstanceCreationAndAccessing [
+
+	| connector |
+
+	connector := AMQP091Connector
+		             named: 'Pepe'
+		             hostedIn: 'localhost'
+		             on: 5672
+		             identifiedBy: 'Matt Murdock'
+		             and: 'Daredevil'
+		             delayingUpTo: 1 minute.
+
+	self
+		assert: connector name equals: 'Pepe';
+		assert: connector host equals: 'localhost';
+		assert: connector port equals: 5672;
+		assert: connector username equals: 'Matt Murdock';
+		assert: connector password equals: 'Daredevil';
+		assert: connector timeoutDelayInSeconds equals: 60 seconds;
+		assert: connector asString
+		equals: 'Pepe''s AMQP 091 connector for localhost:5672, granting access to Matt Murdock'
+]
