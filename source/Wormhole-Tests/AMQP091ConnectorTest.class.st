@@ -15,7 +15,13 @@ AMQP091ConnectorTest >> test01NameCannotBeBlank [
 		add: ' ';
 		do: [ :anInvalidName | 
 			self
-				should: [ AMQP091Connector named: anInvalidName hostedIn: 'localhost' on: 5672 ]
+				should: [ 
+					AMQP091Connector
+						named: anInvalidName
+						hostedIn: 'localhost'
+						on: 5672
+						identifiedBy: 'Matt Murdock'
+					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Name cannot be blank.'
 			]
@@ -29,7 +35,13 @@ AMQP091ConnectorTest >> test02HostCannotBeBlank [
 		add: ' ';
 		do: [ :anInvalidHost | 
 			self
-				should: [ AMQP091Connector named: 'Pepe' hostedIn: anInvalidHost on: 5672 ]
+				should: [ 
+					AMQP091Connector
+						named: 'Pepe'
+						hostedIn: anInvalidHost
+						on: 5672
+						identifiedBy: 'Matt Murdock'
+					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Host cannot be blank.'
 			]
@@ -43,8 +55,34 @@ AMQP091ConnectorTest >> test03PortMustBePositive [
 		add: 0;
 		do: [ :anInvalidPort | 
 			self
-				should: [ AMQP091Connector named: 'Pepe' hostedIn: 'localhost' on: anInvalidPort ]
+				should: [ 
+					AMQP091Connector
+						named: 'Pepe'
+						hostedIn: 'localhost'
+						on: anInvalidPort
+						identifiedBy: 'Matt Murdock'
+					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Port must be positive.'
+			]
+]
+
+{ #category : #tests }
+AMQP091ConnectorTest >> test04UsernameCannotBeBlank [
+
+	OrderedCollection new
+		add: '';
+		add: ' ';
+		do: [ :anInvalidUsername | 
+			self
+				should: [ 
+					AMQP091Connector
+						named: 'Pepe'
+						hostedIn: 'localhost'
+						on: 5672
+						identifiedBy: anInvalidUsername
+					]
+				raise: InstanceCreationFailed
+				withMessageText: 'Username cannot be blank.'
 			]
 ]
