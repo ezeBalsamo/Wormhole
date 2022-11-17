@@ -22,6 +22,7 @@ AMQP091ConnectorTest >> test01NameCannotBeBlank [
 						on: 5672
 						identifiedBy: 'Matt Murdock'
 						and: 'Daredevil'
+						delayingUpTo: 10 seconds
 					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Name cannot be blank.'
@@ -43,6 +44,7 @@ AMQP091ConnectorTest >> test02HostCannotBeBlank [
 						on: 5672
 						identifiedBy: 'Matt Murdock'
 						and: 'Daredevil'
+						delayingUpTo: 10 seconds
 					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Host cannot be blank.'
@@ -64,6 +66,7 @@ AMQP091ConnectorTest >> test03PortMustBePositive [
 						on: anInvalidPort
 						identifiedBy: 'Matt Murdock'
 						and: 'Daredevil'
+						delayingUpTo: 10 seconds
 					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Port must be positive.'
@@ -85,6 +88,7 @@ AMQP091ConnectorTest >> test04UsernameCannotBeBlank [
 						on: 5672
 						identifiedBy: anInvalidUsername
 						and: 'Daredevil'
+						delayingUpTo: 10 seconds
 					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Username cannot be blank.'
@@ -106,8 +110,26 @@ AMQP091ConnectorTest >> test05PasswordCannotBeBlank [
 						on: 5672
 						identifiedBy: 'Matt Murdock'
 						and: anInvalidPassword
+						delayingUpTo: 10 seconds
 					]
 				raise: InstanceCreationFailed
 				withMessageText: 'Password cannot be blank.'
 			]
+]
+
+{ #category : #tests }
+AMQP091ConnectorTest >> test06TimeoutDelayMustBePositive [
+
+	self
+		should: [ 
+			AMQP091Connector
+				named: 'Pepe'
+				hostedIn: 'localhost'
+				on: 5672
+				identifiedBy: 'Matt Murdock'
+				and: 'Daredevil'
+				delayingUpTo: -1 second
+			]
+		raise: InstanceCreationFailed
+		withMessageText: 'Timeout delay must be positive.'
 ]
