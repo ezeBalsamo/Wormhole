@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-AMQP091Connector class >> named: aName hostedIn: aHost on: aPort identifiedBy: aUsername [
+AMQP091Connector class >> named: aName hostedIn: aHost on: aPort identifiedBy: aUsername and: aPassword [
 
 	AssertionCheckerBuilder new
 		failFast;
@@ -19,9 +19,10 @@ AMQP091Connector class >> named: aName hostedIn: aHost on: aPort identifiedBy: a
 			anAsserter
 				refuse: [ aName trimBoth isEmpty ] because: 'Name cannot be blank.';
 				refuse: [ aHost trimBoth isEmpty ] because: 'Host cannot be blank.';
-				enforce: [ aPort strictlyPositive ] because: 'Port must be positive.'
+				enforce: [ aPort strictlyPositive ] because: 'Port must be positive.';
+				refuse: [ aUsername trimBoth isEmpty ] because: 'Username cannot be blank.'
 			];
 		buildAndCheck.
 
-	InstanceCreationFailed signal: 'Username cannot be blank.'
+	InstanceCreationFailed signal: 'Password cannot be blank.'
 ]
